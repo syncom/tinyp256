@@ -22,8 +22,8 @@ typedef enum {
  *
  * @param pk IN -- ECDSA-P256 public key. Must point to a 64-byte buffer.
  * @param pk_len IN -- Size of public key buffer in bytes. Must be 64.
- * @param sha256 IN -- The SHA-256 signed hash. Must point to a 32-byte buffer.
- * @param sha256_len IN -- Size of hash buffer in bytes. Must be 32.
+ * @param sha256 IN -- The SHA-256 digest of the message to sign. Must point to a 32-byte buffer.
+ * @param sha256_len IN -- Size of SHA-256 digest buffer in bytes. Must be 32.
  * @param sig IN -- ECDSA-P256 signature value. Must point to a 64-byte buffer.
  * @param sig_len IN -- Size of sig buffer in bytes. Must be 64.
  *
