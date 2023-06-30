@@ -24,7 +24,7 @@ uint8_t digest[32] = {
     0xa9, 0x16, 0x49, 0xe2, 0x5b, 0xe5, 0x3a, 0xda
 };
 
-// penssl pkeyutl -sign -inkey private.pem -in msg.sha256.bin > msg.sig.bin
+// openssl pkeyutl -sign -inkey private.pem -in msg.sha256.bin > msg.sig.bin
 // openssl asn1parse -in msg.sig.bin -inform DER
 uint8_t signature[64] = {
     // r
