@@ -1,5 +1,5 @@
 /* tinyp256.h: A minimum implementation of ECDSA P255 signature verification
-* using tinycrypt 
+* using tinycrypt
 */
 
 #ifndef __TINYP256__
@@ -21,9 +21,9 @@ typedef enum {
  *         invalid
  *
  * @param pk IN -- ECDSA-P256 public key. Must point to a 64-byte buffer.
- * @param sk_len IN -- Size of sk buffer in bytes. Must be 64.
- * @param sha256 IN -- The SHA-256 hash to sign. Must point to a 32-byte buffer.
- * @param sha256_len IN -- Size of sha256 buffer in bytes. Must be 32.
+ * @param pk_len IN -- Size of public key buffer in bytes. Must be 64.
+ * @param sha256 IN -- The SHA-256 digest of the message to sign. Must point to a 32-byte buffer.
+ * @param sha256_len IN -- Size of SHA-256 digest buffer in bytes. Must be 32.
  * @param sig IN -- ECDSA-P256 signature value. Must point to a 64-byte buffer.
  * @param sig_len IN -- Size of sig buffer in bytes. Must be 64.
  *

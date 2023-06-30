@@ -1,0 +1,7 @@
+*.o
+msg.txt
+*.bin
+*.pem
+*.d
+
+test_tinyp256
