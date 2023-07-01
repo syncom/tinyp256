@@ -5,7 +5,7 @@
 // openssl ecparam -name prime256v1 -genkey -out private.pem
 // openssl ec -in private.pem -pubout > public.pem
 
-// openssl ec -pubin -in public.pem -outform DER  2> /dev/null | xxd -i -s 26
+// openssl ec -pubin -in public.pem -outform DER  2> /dev/null | xxd -i -s 27
 uint8_t pub[64] = {
     0x36, 0x8e, 0xd4, 0x01, 0x0d, 0x11, 0x85, 0x0b,
     0xa6, 0x87, 0xb8, 0x87, 0x34, 0x5a, 0x6c, 0x26,
