@@ -1,0 +1,30 @@
+# Sanity checks
+name: "sanity"
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - 'main'
+
+jobs:
+  build-demo-app:
+    name: 'Build demo, run demo'
+    strategy:
+      fail-fast: false
+      # Run on Linux
+      matrix:
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: 'Checkout repository'
+        uses: actions/checkout@v3
+
+      - name: 'Build and run demo app'
+        run: |
+          set -euxo pipefail
+          cd ${{ github.workspace }}/
+          make test_tinyp256
+          res="$(./test_tinyp256)"
+          [[ "$res" == "Signature is good" ]] || exit 1

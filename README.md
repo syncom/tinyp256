@@ -16,20 +16,20 @@ The API contains only one function
  *         returns TINYP256_FAIL if an error occurred or the signature is
  *         invalid
  *
- * @param pk IN -- ECDSA-P256 public key. Must point to a 64-byte buffer
+ * @param pubkey IN -- ECDSA-P256 public key. Must point to a 64-byte buffer
  * containing an uncompressed point in affine coordinates (Qx, Qy)
- * @param pk_len IN -- Size of public key buffer in bytes. Must be 64.
- * @param sha256 IN -- The SHA-256 digest of the message to verify. Must point to a 32-byte buffer.
- * @param sha256_len IN -- Size of SHA-256 digest buffer in bytes. Must be 32.
- * @param sig IN -- ECDSA-P256 signature value. Must point to a 64-byte buffer
+ * @param pubkey_len IN -- Size of public key buffer in bytes. Must be 64.
+ * @param digest IN -- The SHA-256 digest of the message to verify. Must point to a 32-byte buffer.
+ * @param digest_len IN -- Size of SHA-256 digest buffer in bytes. Must be 32.
+ * @param signature IN -- ECDSA-P256 signature value. Must point to a 64-byte buffer
  * containing the raw (r, s) value
- * @param sig_len IN -- Size of sig buffer in bytes. Must be 64.
+ * @param signature_len IN -- Size of sig buffer in bytes. Must be 64.
  *
  */
 tinyp256_t tinyp256_verify(
-    const uint8_t *pk, uint16_t pk_len,
-    uint8_t *sha256, uint16_t sha256_len,
-    uint8_t *sig, uint16_t sig_len);
+    const uint8_t *pubkey, uint16_t pubkey_len,
+    uint8_t *digest, uint16_t digest_len,
+    uint8_t *signature, uint16_t signature_len);
 ```
 
 ## Interoperate with OpenSSL

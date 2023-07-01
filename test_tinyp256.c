@@ -2,11 +2,12 @@
 #include <stdio.h>
 #include "tinyp256.h"
 
+// Keygen:
 // openssl ecparam -name prime256v1 -genkey -out private.pem
 // openssl ec -in private.pem -pubout > public.pem
 
 // openssl ec -pubin -in public.pem -outform DER  2> /dev/null | xxd -i -s 27
-uint8_t pub[64] = {
+uint8_t pubkey[64] = {
     0x36, 0x8e, 0xd4, 0x01, 0x0d, 0x11, 0x85, 0x0b,
     0xa6, 0x87, 0xb8, 0x87, 0x34, 0x5a, 0x6c, 0x26,
     0x98, 0x52, 0x59, 0xd7, 0xc2, 0x6f, 0x48, 0xab,
@@ -17,8 +18,7 @@ uint8_t pub[64] = {
     0x12, 0x11, 0x45, 0xd4, 0x5e, 0x86, 0x45, 0x4c
 };
 
-// openssl dgst -sha256 -binary msg.txt > msg.sha256.bin
-// xxd -i msg.sha256.bin
+// openssl dgst -sha256 -binary msg.bin | xxd -i
 uint8_t digest[32] = {
     0x91, 0x75, 0x1c, 0xee, 0x0a, 0x1a, 0xb8, 0x41,
     0x44, 0x00, 0x23, 0x8a, 0x76, 0x14, 0x11, 0xda,
@@ -26,7 +26,7 @@ uint8_t digest[32] = {
     0xa9, 0x16, 0x49, 0xe2, 0x5b, 0xe5, 0x3a, 0xda
 };
 
-// openssl pkeyutl -sign -inkey private.pem -in msg.sha256.bin > msg.sig.bin
+// openssl dgst -sha256 -sign private.pem -out msg.sig.bin msg.bin
 // openssl asn1parse -in msg.sig.bin -inform DER | awk -F':' '{print $4}' | awk 'NF > 0' | xxd -r -p | xxd -i
 uint8_t signature[64] = {
     // r
@@ -42,7 +42,7 @@ uint8_t signature[64] = {
 };
 
 int main(void) {
-    if (tinyp256_verify(pub, sizeof(pub), digest, sizeof(digest), signature, sizeof(signature)) == TINYP256_OK) {
+    if (tinyp256_verify(pubkey, sizeof(pubkey), digest, sizeof(digest), signature, sizeof(signature)) == TINYP256_OK) {
         printf("Signature is good\n");
         return 0;
     } else {
