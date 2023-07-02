@@ -34,6 +34,9 @@ tinyp256_t tinyp256_verify(
 
 ## Interoperate with OpenSSL
 
+Tested with "OpenSSL 3.1.1 30 May 2023" (Homebrew) on macOS and "OpenSSL 1.1.1
+11 Sep 2018" on Ubuntu/Linux.
+
 ### Key generation and message signing with OpenSSL
 
 - Generate key pair
