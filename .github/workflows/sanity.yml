@@ -28,3 +28,24 @@ jobs:
           make test_tinyp256
           res="$(./test_tinyp256)"
           [[ "$res" == "Signature is good" ]] || exit 1
+
+  cross-check-with-openssl:
+    name: 'Cross check with OpenSSL'
+    strategy:
+      fail-fast: false
+      # Run on Linux
+      matrix:
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: 'Checkout repository'
+        uses: actions/checkout@v3
+
+      - name: 'Verify randomly generated test vectors'
+        run: |
+          set -euxo pipefail
+          cd ${{ github.workspace }}/
+          for i in {1..42}; do
+            echo "Testing (round $i):"
+            ./scripts/openssl-crosscheck.sh
+          done

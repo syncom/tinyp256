@@ -72,22 +72,22 @@ tinyp256_t tinyp256_verify(
 
 ### Signature verification with tinyp256
 
-Obtain C-styled bytes arrays pointed to by `pk`, `sha256` and `sig` as follows.
-Feed `tinyp256_verify()` with them for signature verification.
+Obtain C-styled bytes arrays pointed to by `pubkey`, `digest` and `signature` as
+follows.  Feed `tinyp256_verify()` with them for signature verification.
 
-- Public key (`pk`)
+- Public key (`pubkey`)
 
   ```bash
   openssl ec -pubin -in public.pem -outform DER  2>/dev/null | xxd -i -s 27
   ```
 
-- SHA-256 hash digest (`sha256`) of message to verify
+- SHA-256 hash digest (`digest`) of message to verify
 
   ```bash
   openssl dgst -sha256 -binary msg.bin | xxd -i
   ```
 
-- Signature (`sig`)
+- Signature (`signature`)
 
   ```bash
   openssl asn1parse -in msg.sig.bin -inform DER \
@@ -97,7 +97,7 @@ Feed `tinyp256_verify()` with them for signature verification.
     | xxd -i
   ```
 
-Sample byte arrays `pk`, `sha256` and `sig` can be found in
+Sample byte arrays `pubkey`, `digest` and `signature` can be found in
 [test_tinyp256.c](./test_tinyp256.c). To test, in repository's directory root
 
 ```bash
