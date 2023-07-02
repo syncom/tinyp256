@@ -45,6 +45,8 @@ jobs:
         run: |
           set -euxo pipefail
           cd ${{ github.workspace }}/
+          # For debugging
+          openssl version
           for i in {1..42}; do
             echo "Testing (round $i):"
             ./scripts/openssl-crosscheck.sh
