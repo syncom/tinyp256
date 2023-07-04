@@ -1,0 +1,42 @@
+Files constants.h, ecc.h, ecdsa.h, ecc.c, ecc_dsa.c in this repo are directly
+taken from the TinyCrypt GitHub repository, at commit
+5969b0e0f572a15ed95dc272e57104faeb5eb6b0
+(https://github.com/intel/tinycrypt/tree/5969b0e0f572a15ed95dc272e57104faeb5eb6b0).
+The outputs of `diff -s` between the original files and files in this repository
+are as follows.
+
+- constants.h:
+
+  Files tinycrypt/lib/include/tinycrypt/constants.h and tinyp256/constants.h are
+  identical.
+
+- ecc.h:
+
+  File tinycrypt/lib/include/tinycrypt/ecc.h and tinyp256/ecc.h are identical.
+
+- ecc_dsa.h:
+
+  81c81
+  < #include <tinycrypt/ecc.h>
+  ---
+  > #include "ecc.h"
+
+- ecc.c:
+
+  55,56d54
+  < #include <tinycrypt/ecc.h>
+  < #include <tinycrypt/ecc_platform_specific.h>
+  57a56,57
+  > #include "ecc.h"
+  > //#include "ecc_platform_specific.h"
+
+- ecc_dsa.c
+
+  56,58c56,58
+  < #include <tinycrypt/constants.h>
+  < #include <tinycrypt/ecc.h>
+  < #include <tinycrypt/ecc_dsa.h>
+  ---
+  > #include "constants.h"
+  > #include "ecc.h"
+  > #include "ecc_dsa.h"
