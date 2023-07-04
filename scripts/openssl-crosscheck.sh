@@ -32,12 +32,25 @@ openssl ec -in "$PRIKEY_FILE" -pubout -out "$PUBKEY_FILE"
 head -c 4096 /dev/urandom > "$PAYLOAD_FILE"
 openssl dgst -sha256 -sign "$PRIKEY_FILE" -out "$SIGNATURE_FILE" "$PAYLOAD_FILE"
 
+# For debugging
+openssl ec -pubin -in "$PUBKEY_FILE" -text -noout >&2
+openssl asn1parse -in "$SIGNATURE_FILE" -inform DER >&2
+
+# Self-test: verify signature with openssl
+# This also mitigates fault injection attacks
+openssl dgst -verify "$PUBKEY_FILE" -keyform PEM -sha256 \
+  -signature "$SIGNATURE_FILE" -binary "$PAYLOAD_FILE"
+
+# Convert to tinyp256 required data format
 PUBKEY="$(openssl ec -pubin -in "$PUBKEY_FILE" -outform DER  2>/dev/null \
   | xxd -i -s 27)"
 DIGEST="$(openssl dgst -sha256 -binary "$PAYLOAD_FILE" | xxd -i)"
+# Pad r, s hex strings with leading 0s so that they are 32 bytes, if needed
 SIGNATURE="$(openssl asn1parse -in "$SIGNATURE_FILE" -inform DER \
   | awk -F':' '{print $4}' \
   | awk 'NF > 0' \
+  | awk '{printf "%064s", $0}' \
+  | tr ' ' 0 \
   | xxd -r -p \
   | xxd -i)"
 
