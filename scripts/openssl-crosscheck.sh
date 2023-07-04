@@ -36,6 +36,11 @@ openssl dgst -sha256 -sign "$PRIKEY_FILE" -out "$SIGNATURE_FILE" "$PAYLOAD_FILE"
 openssl ec -pubin -in "$PUBKEY_FILE" -text -noout >&2
 openssl asn1parse -in "$SIGNATURE_FILE" -inform DER >&2
 
+# Self-test: verify signature with openssl
+# This also mitigates fault injection attacks
+openssl dgst -verify "$PUBKEY_FILE" -keyform PEM -sha256 \
+  -signature "$SIGNATURE_FILE" -binary "$PAYLOAD_FILE"
+
 # Convert to tinyp256 required data format
 PUBKEY="$(openssl ec -pubin -in "$PUBKEY_FILE" -outform DER  2>/dev/null \
   | xxd -i -s 27)"
