@@ -97,9 +97,15 @@ follows.  Feed `tinyp256_verify()` with them for signature verification.
   openssl asn1parse -in msg.sig.bin -inform DER \
     | awk -F':' '{print $4}' \
     | awk 'NF > 0' \
+    | awk '{printf "%064s", $0}' \
+    | tr ' ' 0 \
     | xxd -r -p \
     | xxd -i
   ```
+
+  Note that we need to pad the `r`, `s` values in hex with leading zeros so that
+  they are 32-byte long, if needed - that's what `awk '{printf "%064s", $0} | tr
+  ' ' 0` is for.
 
 Sample byte arrays `pubkey`, `digest` and `signature` can be found in
 [test_tinyp256.c](./test_tinyp256.c). To test, in repository's directory root
