@@ -3,9 +3,10 @@
 This is an implementation of ECDSA signature verification with Curve
 [P-256](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-186.pdf),
 based on a minimum subset of source files from the [TinyCrypt cryptographic
-library](https://github.com/intel/tinycrypt), with nearly no modification. It
-signs a 256-bit hash digest of the payload message: a natural choice of the hash
-algorithm is SHA-256, and we will assume it.
+library](https://github.com/intel/tinycrypt), with nearly no modification (cf.,
+[diffs](./diffs.txt)). It verifies the signature against a 256-bit hash digest
+of the payload message: a natural choice of the hash algorithm is SHA-256, and
+we will assume it.
 
 The API contains only one function
 
