@@ -19,7 +19,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: 'Checkout repository'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.1
 
       - name: 'Build and run demo app'
         run: |
@@ -39,7 +39,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: 'Checkout repository'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.1
 
       - name: 'Verify randomly generated test vectors'
         run: |
