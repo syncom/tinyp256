@@ -9,4 +9,3 @@ add_library(tinyp256 tinyp256.c ecc.c ecc_dsa.c constants.h tinyp256.h)
 
 ## [main]
 
-
